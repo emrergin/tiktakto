@@ -90,6 +90,7 @@ const tahtamiz = (function tahtaOlustur() {
         TahtaSoyut = [[0,0,0], [0,0,0], [0,0,0]];
         currentPlayer = Player1;
         OyunModu=1;
+        yenidenBaslatDegistir();
         tahtayiYenile();
     }
     
@@ -105,7 +106,7 @@ const tahtamiz = (function tahtaOlustur() {
         for (let i = 0; i < 8; i++) {
             if (Math.abs(cPuan[i])===3)
             {
-                OyunSonu(1);
+                oyunSonu(1);
             }
         }
     }
@@ -164,12 +165,11 @@ const tahtamiz = (function tahtaOlustur() {
     
     function SiradakiHamle(){
         if (!((TahtaSoyut[0].some(item => item === 0)||TahtaSoyut[1].some(item => item === 0)||TahtaSoyut[2].some(item => item === 0)))){
-
             oyunSonu(2);
             return;
         }
             
-        if (currentPlayer===PlayerAI){
+        if (currentPlayer===PlayerAI && OyunModu===1){
             oyunyeri=hucreDegerleme();
             Tahta[oyunyeri[0]][oyunyeri[1]] = PlayerAI.sembol;
             TahtaSoyut[oyunyeri[0]][oyunyeri[1]] = PlayerAI.soyut;

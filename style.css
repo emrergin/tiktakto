@@ -39,7 +39,9 @@ body{
     align-items: center;
 }
 
-
+button{
+    padding: 1vh;
+}
 #container{
     border: min(5vw,5vh) solid darkgreen;
     border-radius: min(2.5vw,2.5vh);
@@ -73,15 +75,9 @@ body{
 }
 
 .hucre:hover{
-    /* transform: scale(1.1); */
     border: 2.5vh solid lightgreen;
     animation: scale 0.5s;
 }
 
-.kazanan{
-    background-color: aqua;
-}
 
-.dusunulen{
-    background-color: purple;
-}
+
