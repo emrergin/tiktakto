@@ -4,10 +4,12 @@ const playerFactory = (isim, sembol,soyut) => {
     return { isim, sembol ,soyut}
 };
 
-const Player1 = playerFactory(`1`, `X`,1);
-const Player2 = playerFactory(`2`, `O`,-1);
-const PlayerAI = playerFactory(`AI`, `O`,-1);
+const Player1 = playerFactory(`1. Oyuncu`, `X`,1);
+const Player2 = playerFactory(`2. Oyuncu`, `O`,-1);
+const PlayerAI = playerFactory(`Bilgisayar`, `O`,-1);
 const rbs = document.getElementsByName('mod');
+const yenidenBaslat=document.getElementById(`temizle`);
+
 function modSec(){
   let selectedValue;
   for (const rb of rbs) {
@@ -17,16 +19,20 @@ function modSec(){
       }
   }
 }
-// let OyunModu=1;
+
+let OyunModu=2;
+function yenidenBaslatDegistir(){
+    OyunModu===1? yenidenBaslat.textContent=`Yeniden!` : yenidenBaslat.textContent=`Başlat!`;
+}
+
 
 const tahtamiz = (function tahtaOlustur() {
     let currentPlayer = Player1;
     let Tahta = [[,,], [,,], [,,]];
     let TahtaSoyut = [[0,0,0], [0,0,0], [0,0,0]];
     let cepheler = [[[0,0],[0,1],[0,2]],[[1,0],[1,1],[1,2]],[[2,0],[2,1],[2,2]],[[0,0],[1,0],[2,0]],[[0,1],[1,1],[2,1]],[[0,2],[1,2],[2,2]],[[0,0],[1,1],[2,2]],[[2,0],[1,1],[0,2]]];
-    // let cephePuanlari=[0,0,0,0,0,0,0,0];
     const boyut = 3;
-    // tahtaTemizle();
+
     for (let i = 0; i < boyut; i++) {
         let hucreSatiri = document.createElement('div');
         hucreSatiri.classList.add('hucreSatiri');
@@ -52,7 +58,7 @@ const tahtamiz = (function tahtaOlustur() {
     tahtayiYenile();
 
     function sekilkoy(e) {
-        if (TahtaSoyut[e.target.dataset.satir][e.target.dataset.sutun] === 0){
+        if (TahtaSoyut[e.target.dataset.satir][e.target.dataset.sutun] === 0 && OyunModu===1){
             Tahta[e.target.dataset.satir][e.target.dataset.sutun] = currentPlayer.sembol;
             TahtaSoyut[e.target.dataset.satir][e.target.dataset.sutun] = currentPlayer.soyut;
             tahtayiYenile();
@@ -83,6 +89,7 @@ const tahtamiz = (function tahtaOlustur() {
         Tahta = [[,,], [,,], [,,]];
         TahtaSoyut = [[0,0,0], [0,0,0], [0,0,0]];
         currentPlayer = Player1;
+        OyunModu=1;
         tahtayiYenile();
     }
     
@@ -98,7 +105,7 @@ const tahtamiz = (function tahtaOlustur() {
         for (let i = 0; i < 8; i++) {
             if (Math.abs(cPuan[i])===3)
             {
-                alert(currentPlayer.isim + ". oyuncu kazandı.");
+                OyunSonu(1);
             }
         }
     }
@@ -109,11 +116,17 @@ const tahtamiz = (function tahtaOlustur() {
     function hucreDegerleme(){
         let cPuan=cephePuaniHesapla();
         let degerArray=[[0,0,0],[0,0,0],[0,0,0]];
+        let degerArray2=[[0,0,0],[0,0,0],[0,0,0]];
         let eniyiHamle=[];
+        let ikinciSira=[];
+        let eniyiHamle2=[];
         for (let i = 0; i < 8; i++) {
-            degerArray[cepheler[i][0][0]][cepheler[i][0][1]]+=cPuan[i]+0.1;
-            degerArray[cepheler[i][1][0]][cepheler[i][1][1]]+=cPuan[i]+0.1;
-            degerArray[cepheler[i][2][0]][cepheler[i][2][1]]+=cPuan[i]+0.1;
+            degerArray[cepheler[i][0][0]][cepheler[i][0][1]]=Math.max(degerArray[cepheler[i][0][0]][cepheler[i][0][1]],cPuan[i]);
+            degerArray[cepheler[i][1][0]][cepheler[i][1][1]]=Math.max(degerArray[cepheler[i][1][0]][cepheler[i][1][1]],cPuan[i]);
+            degerArray[cepheler[i][2][0]][cepheler[i][2][1]]=Math.max(degerArray[cepheler[i][2][0]][cepheler[i][2][1]],cPuan[i]);
+            degerArray2[cepheler[i][0][0]][cepheler[i][0][1]]=Math.min(degerArray2[cepheler[i][0][0]][cepheler[i][0][1]],cPuan[i]);
+            degerArray2[cepheler[i][1][0]][cepheler[i][1][1]]=Math.min(degerArray2[cepheler[i][1][0]][cepheler[i][1][1]],cPuan[i]);
+            degerArray2[cepheler[i][2][0]][cepheler[i][2][1]]=Math.min(degerArray2[cepheler[i][2][0]][cepheler[i][2][1]],cPuan[i]);
         }
         for (let i = 0; i < boyut; i++) {            
             for (let j = 0; j < boyut; j++) {
@@ -126,25 +139,59 @@ const tahtamiz = (function tahtaOlustur() {
         for (let i = 0; i < boyut; i++) {            
             for (let j = 0; j < boyut; j++) {
                 if (degerArray[i][j]===maxDeger){
-                //    document.querySelector(`[data-satir="${i}"][data-sutun="${j}"]`).classList.add('dusunulen');
                 eniyiHamle.push([i,j]);
+                ikinciSira.push(degerArray2[i][j]);
                 }
             }
         }
-        return eniyiHamle[Math.floor(Math.random() * eniyiHamle.length)]
+        if (eniyiHamle.length===1)
+        {
+            return eniyiHamle[0];
+        }
+        else {
+            // console.log(eniyiHamle);
+            // console.log(ikinciSira);
+            let minDeger = Math.min(...ikinciSira);
+            for (let j = 0; j < eniyiHamle.length; j++) {
+                if (ikinciSira[j]===minDeger){
+                    eniyiHamle2.push(eniyiHamle[j]);
+                }
+            }
+            // console.log(eniyiHamle2);
+            return eniyiHamle2[Math.floor(Math.random() * eniyiHamle2.length)]
+        }
     }
     
     function SiradakiHamle(){
-    if (currentPlayer===PlayerAI){
-        oyunyeri=hucreDegerleme();
-        console.log(oyunyeri);
-        Tahta[oyunyeri[0]][oyunyeri[1]] = PlayerAI.sembol;
-        TahtaSoyut[oyunyeri[0]][oyunyeri[1]] = PlayerAI.soyut;
-        tahtayiYenile();
-        zaferKontrolu();
-        currentPlayer=Player1;
-    }};
+        if (!((TahtaSoyut[0].some(item => item === 0)||TahtaSoyut[1].some(item => item === 0)||TahtaSoyut[2].some(item => item === 0)))){
 
-    return {tahtaTemizle,SiradakiHamle};
+            oyunSonu(2);
+            return;
+        }
+            
+        if (currentPlayer===PlayerAI){
+            oyunyeri=hucreDegerleme();
+            Tahta[oyunyeri[0]][oyunyeri[1]] = PlayerAI.sembol;
+            TahtaSoyut[oyunyeri[0]][oyunyeri[1]] = PlayerAI.soyut;
+            tahtayiYenile();
+            zaferKontrolu();
+            currentPlayer=Player1;
+        }
+    };
+
+    function oyunSonu(num){
+        switch(num){
+            case 1:
+                alert(currentPlayer.isim + " kazandı.");
+                break;
+            case 2:
+                alert("Berabere! Yenişemediniz!");
+                break;
+        }
+        OyunModu=2;
+        yenidenBaslatDegistir();
+    }
+
+    return {tahtaTemizle};
 })();
 
