@@ -11,7 +11,7 @@ const PlayerAI = playerFactory(`AI`, `O`,-1);
 
 const tahtamiz = (function tahtaOlustur() {
     let currentPlayer = Player1;
-    let Tahta = [[, ,], [, ,], [, ,]];
+    let Tahta = [[,,], [,,], [,,]];
     let TahtaSoyut = [[0,0,0], [0,0,0], [0,0,0]];
     const boyut = 3;
     // tahtaTemizle();
@@ -40,15 +40,18 @@ const tahtamiz = (function tahtaOlustur() {
     tahtayiYenile();
 
     function sekilkoy(e) {
-        Tahta[e.target.dataset.satir][e.target.dataset.sutun] = currentPlayer.sembol;
-        TahtaSoyut[e.target.dataset.satir][e.target.dataset.sutun] = currentPlayer.soyut;
-        tahtayiYenile();
-        zaferKontrolu();
-        if (currentPlayer === Player1) {
-            currentPlayer = Player2;
-        }
-        else {
-            currentPlayer = Player1;
+        if (TahtaSoyut[e.target.dataset.satir][e.target.dataset.sutun] === 0){
+            Tahta[e.target.dataset.satir][e.target.dataset.sutun] = currentPlayer.sembol;
+            TahtaSoyut[e.target.dataset.satir][e.target.dataset.sutun] = currentPlayer.soyut;
+            tahtayiYenile();
+            zaferKontrolu();
+            
+            if (currentPlayer === Player1) {
+                currentPlayer = Player2;
+            }
+            else {
+                currentPlayer = Player1;
+            }
         }
     }
 
@@ -59,7 +62,7 @@ const tahtamiz = (function tahtaOlustur() {
     }
 
     function tahtaTemizle(){
-        Tahta = [[, ,], [, ,], [, ,]];
+        Tahta = [[,,], [,,], [,,]];
         currentPlayer = Player1;
         tahtayiYenile();
     }
