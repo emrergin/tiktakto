@@ -58,6 +58,11 @@ const tahtamiz = (function tahtaOlustur() {
         });
     }
 
+    function tahtaTemizle(){
+        Tahta = [[, ,], [, ,], [, ,]];
+        currentPlayer = Player1;
+        tahtayiYenile();
+    }
     function zaferKontrolu() {
         // for (let i = 0; i < boyut; i++) {
         //     if (TahtaSoyut)
@@ -66,7 +71,7 @@ const tahtamiz = (function tahtaOlustur() {
 
         // }
     }
-    // return {hucreler};
+    return {tahtaTemizle};
 })();
 
 

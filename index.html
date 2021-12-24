@@ -10,7 +10,22 @@
 </head>
 <body>
     <div id="icerik">
-        <div id="container" draggable="false" class="unselectable"></div>
-    </div>    
+        <div id="icerik2">
+            <div id="ayarlar">
+                <div style="margin:10px; font-size: min(3vh,2vw);">Rakip</div>
+                <div>
+                    <input type="radio" id="default"
+                        name="mod" value="insan" checked autocomplete="off">
+                    <label for="default">İnsan</label>
+
+                    <input type="radio" id="tedrici"
+                        name="mod" value="ai" autocomplete="off">
+                    <label for="tedrici">Bilgisayar</label>
+                </div>
+                <button type="button" id="temizle" onclick="tahtamiz.tahtaTemizle()" style="margin:20px; font-size: min(2vh,1.5vw);">Yeniden!</button>
+            </div>
+            <div id="container" draggable="false" class="unselectable"></div>
+        </div>
+    </div>   
 </body>
 </html>
