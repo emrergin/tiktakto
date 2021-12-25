@@ -127,18 +127,15 @@ const tahtamiz = (function anaModul() {
         let ikinciSira=[];
         let eniyiHamle2=[];
         for (let i = 0; i < 8; i++) {
-            // degerArray[cepheler[i][0][0]][cepheler[i][0][1]]=Math.max(degerArray[cepheler[i][0][0]][cepheler[i][0][1]],cPuan[i]);
-            // degerArray[cepheler[i][1][0]][cepheler[i][1][1]]=Math.max(degerArray[cepheler[i][1][0]][cepheler[i][1][1]],cPuan[i]);
-            // degerArray[cepheler[i][2][0]][cepheler[i][2][1]]=Math.max(degerArray[cepheler[i][2][0]][cepheler[i][2][1]],cPuan[i]);
-            // degerArray2[cepheler[i][0][0]][cepheler[i][0][1]]=Math.min(degerArray2[cepheler[i][0][0]][cepheler[i][0][1]],cPuan[i]);
-            // degerArray2[cepheler[i][1][0]][cepheler[i][1][1]]=Math.min(degerArray2[cepheler[i][1][0]][cepheler[i][1][1]],cPuan[i]);
-            // degerArray2[cepheler[i][2][0]][cepheler[i][2][1]]=Math.min(degerArray2[cepheler[i][2][0]][cepheler[i][2][1]],cPuan[i]);
             degerArray[cepheler[i][0][0]][cepheler[i][0][1]]+=Math.max(0,cPuan[i])+0.1;
             degerArray[cepheler[i][1][0]][cepheler[i][1][1]]+=Math.max(0,cPuan[i])+0.1;
             degerArray[cepheler[i][2][0]][cepheler[i][2][1]]+=Math.max(0,cPuan[i])+0.1;
-            degerArray2[cepheler[i][0][0]][cepheler[i][0][1]]+=Math.min(0,cPuan[i])-0.1;
-            degerArray2[cepheler[i][1][0]][cepheler[i][1][1]]+=Math.min(0,cPuan[i])-0.1;
-            degerArray2[cepheler[i][2][0]][cepheler[i][2][1]]+=Math.min(0,cPuan[i])-0.1;
+            // degerArray2[cepheler[i][0][0]][cepheler[i][0][1]]+=Math.min(0,cPuan[i])-0.1;
+            // degerArray2[cepheler[i][1][0]][cepheler[i][1][1]]+=Math.min(0,cPuan[i])-0.1;
+            // degerArray2[cepheler[i][2][0]][cepheler[i][2][1]]+=Math.min(0,cPuan[i])-0.1;
+            degerArray[cepheler[i][0][0]][cepheler[i][0][1]]+=-(Math.min(0,cPuan[i]));
+            degerArray[cepheler[i][1][0]][cepheler[i][1][1]]+=-(Math.min(0,cPuan[i]));
+            degerArray[cepheler[i][2][0]][cepheler[i][2][1]]+=-(Math.min(0,cPuan[i]));
         }
         for (let i = 0; i < boyut; i++) {            
             for (let j = 0; j < boyut; j++) {
@@ -152,26 +149,27 @@ const tahtamiz = (function anaModul() {
             for (let j = 0; j < boyut; j++) {
                 if (degerArray[i][j]===maxDeger){
                 eniyiHamle.push([i,j]);
-                ikinciSira.push(degerArray2[i][j]);
+                // ikinciSira.push(degerArray2[i][j]);
                 }
             }
         }
-        if (eniyiHamle.length===1)
-        {
-            return eniyiHamle[0];
-        }
-        else {
-            // console.log(eniyiHamle);
-            // console.log(ikinciSira);
-            let minDeger = Math.min(...ikinciSira);
-            for (let j = 0; j < eniyiHamle.length; j++) {
-                if (ikinciSira[j]===minDeger){
-                    eniyiHamle2.push(eniyiHamle[j]);
-                }
-            }
-            // console.log(eniyiHamle2);
-            return eniyiHamle2[Math.floor(Math.random() * eniyiHamle2.length)]
-        }
+        return eniyiHamle[Math.floor(Math.random() * eniyiHamle.length)]
+        // if (eniyiHamle.length===1)
+        // {
+        //     return eniyiHamle[0];
+        // }
+        // else {
+        //     // console.log(eniyiHamle);
+        //     // console.log(ikinciSira);
+        //     let minDeger = Math.min(...ikinciSira);
+        //     for (let j = 0; j < eniyiHamle.length; j++) {
+        //         if (ikinciSira[j]===minDeger){
+        //             eniyiHamle2.push(eniyiHamle[j]);
+        //         }
+        //     }
+        //     // console.log(eniyiHamle2);
+        //     return eniyiHamle2[Math.floor(Math.random() * eniyiHamle2.length)]
+        // }
     }
     
     function SiradakiHamle(){
