@@ -1,7 +1,6 @@
 
 const tahtamiz = (function anaModul() {
     const grid = document.querySelector('#container');
-    // grid.style.display=`none`;
 
     const playerFactory = (isim, sembol,soyut) => {
         return { isim, sembol ,soyut}
@@ -130,12 +129,9 @@ const tahtamiz = (function anaModul() {
             degerArray[cepheler[i][0][0]][cepheler[i][0][1]]+=Math.max(0,cPuan[i])+0.1;
             degerArray[cepheler[i][1][0]][cepheler[i][1][1]]+=Math.max(0,cPuan[i])+0.1;
             degerArray[cepheler[i][2][0]][cepheler[i][2][1]]+=Math.max(0,cPuan[i])+0.1;
-            // degerArray2[cepheler[i][0][0]][cepheler[i][0][1]]+=Math.min(0,cPuan[i])-0.1;
-            // degerArray2[cepheler[i][1][0]][cepheler[i][1][1]]+=Math.min(0,cPuan[i])-0.1;
-            // degerArray2[cepheler[i][2][0]][cepheler[i][2][1]]+=Math.min(0,cPuan[i])-0.1;
-            degerArray[cepheler[i][0][0]][cepheler[i][0][1]]+=-(Math.min(0,cPuan[i]));
-            degerArray[cepheler[i][1][0]][cepheler[i][1][1]]+=-(Math.min(0,cPuan[i]));
-            degerArray[cepheler[i][2][0]][cepheler[i][2][1]]+=-(Math.min(0,cPuan[i]));
+            degerArray[cepheler[i][0][0]][cepheler[i][0][1]]+=-(Math.min(0,cPuan[i]))*0.7;
+            degerArray[cepheler[i][1][0]][cepheler[i][1][1]]+=-(Math.min(0,cPuan[i]))*0.7;
+            degerArray[cepheler[i][2][0]][cepheler[i][2][1]]+=-(Math.min(0,cPuan[i]))*0.7;
         }
         for (let i = 0; i < boyut; i++) {            
             for (let j = 0; j < boyut; j++) {
@@ -149,27 +145,10 @@ const tahtamiz = (function anaModul() {
             for (let j = 0; j < boyut; j++) {
                 if (degerArray[i][j]===maxDeger){
                 eniyiHamle.push([i,j]);
-                // ikinciSira.push(degerArray2[i][j]);
                 }
             }
         }
         return eniyiHamle[Math.floor(Math.random() * eniyiHamle.length)]
-        // if (eniyiHamle.length===1)
-        // {
-        //     return eniyiHamle[0];
-        // }
-        // else {
-        //     // console.log(eniyiHamle);
-        //     // console.log(ikinciSira);
-        //     let minDeger = Math.min(...ikinciSira);
-        //     for (let j = 0; j < eniyiHamle.length; j++) {
-        //         if (ikinciSira[j]===minDeger){
-        //             eniyiHamle2.push(eniyiHamle[j]);
-        //         }
-        //     }
-        //     // console.log(eniyiHamle2);
-        //     return eniyiHamle2[Math.floor(Math.random() * eniyiHamle2.length)]
-        // }
     }
     
     function SiradakiHamle(){
