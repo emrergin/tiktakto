@@ -1,38 +1,39 @@
-const grid = document.querySelector('#container');
 
-const playerFactory = (isim, sembol,soyut) => {
-    return { isim, sembol ,soyut}
-};
+const tahtamiz = (function anaModul() {
+    const grid = document.querySelector('#container');
+    // grid.style.display=`none`;
 
-const Player1 = playerFactory(`1. Oyuncu`, `X`,1);
-const Player2 = playerFactory(`2. Oyuncu`, `O`,-1);
-const PlayerAI = playerFactory(`Bilgisayar`, `O`,-1);
-const rbs = document.getElementsByName('mod');
-const yenidenBaslat=document.getElementById(`temizle`);
+    const playerFactory = (isim, sembol,soyut) => {
+        return { isim, sembol ,soyut}
+    };
 
-function modSec(){
-  let selectedValue;
-  for (const rb of rbs) {
-      if (rb.checked) {
-          selectedValue = rb.value;
-          return (selectedValue);
-      }
-  }
-}
+    const Player1 = playerFactory(`1. Oyuncu`, `X`,1);
+    const Player2 = playerFactory(`2. Oyuncu`, `O`,-1);
+    const PlayerAI = playerFactory(`Bilgisayar`, `O`,-1);
+    const rbs = document.getElementsByName('mod');
+    const yenidenBaslat=document.getElementById(`temizle`);
 
-let OyunModu=2;
-function yenidenBaslatDegistir(){
-    OyunModu===1? yenidenBaslat.textContent=`Yeniden!` : yenidenBaslat.textContent=`Başlat!`;
-}
+    function modSec(){
+    let selectedValue;
+    for (const rb of rbs) {
+        if (rb.checked) {
+            selectedValue = rb.value;
+            return (selectedValue);
+        }
+    }
+    }
 
-
-const tahtamiz = (function tahtaOlustur() {
+    let OyunModu=2;
+    function yenidenBaslatDegistir(){
+        OyunModu===1? yenidenBaslat.textContent=`Yeniden!` : yenidenBaslat.textContent=`Başlat!`;
+    }
     let currentPlayer = Player1;
     let Tahta = [[,,], [,,], [,,]];
     let TahtaSoyut = [[0,0,0], [0,0,0], [0,0,0]];
     let cepheler = [[[0,0],[0,1],[0,2]],[[1,0],[1,1],[1,2]],[[2,0],[2,1],[2,2]],[[0,0],[1,0],[2,0]],[[0,1],[1,1],[2,1]],[[0,2],[1,2],[2,2]],[[0,0],[1,1],[2,2]],[[2,0],[1,1],[0,2]]];
     const boyut = 3;
 
+    // TAHTA OLUSTUR
     for (let i = 0; i < boyut; i++) {
         let hucreSatiri = document.createElement('div');
         hucreSatiri.classList.add('hucreSatiri');
@@ -57,6 +58,7 @@ const tahtamiz = (function tahtaOlustur() {
     });
     tahtayiYenile();
 
+    // OYUNCULARIN ISARET KOYMASI=====================================
     function sekilkoy(e) {
         if (TahtaSoyut[e.target.dataset.satir][e.target.dataset.sutun] === 0 && OyunModu===1){
             Tahta[e.target.dataset.satir][e.target.dataset.sutun] = currentPlayer.sembol;
@@ -78,7 +80,7 @@ const tahtamiz = (function tahtaOlustur() {
         }
         SiradakiHamle();
     }
-
+    // MEVCUT ARRAYin TAHTAYA YAZILMASI=====================================
     function tahtayiYenile() {
         hucreler.forEach((hucreYeri) => {
             hucreYeri.textContent = Tahta[hucreYeri.dataset.satir][hucreYeri.dataset.sutun];
@@ -92,6 +94,7 @@ const tahtamiz = (function tahtaOlustur() {
         OyunModu=1;
         yenidenBaslatDegistir();
         tahtayiYenile();
+        grid.style.display=`flex`;
     }
     
     function cephePuaniHesapla(){
@@ -110,10 +113,12 @@ const tahtamiz = (function tahtaOlustur() {
             }
         }
     }
+
     function getMax(a) {
         return Math.max(...a.map(e => Array.isArray(e) ? getMax(e) : e));
-     }
-     
+    }
+    
+    // YAPAY ZEKA BURADA GIZLI====================================
     function hucreDegerleme(){
         let cPuan=cephePuaniHesapla();
         let degerArray=[[0,0,0],[0,0,0],[0,0,0]];
@@ -164,7 +169,7 @@ const tahtamiz = (function tahtaOlustur() {
     }
     
     function SiradakiHamle(){
-        if (!((TahtaSoyut[0].some(item => item === 0)||TahtaSoyut[1].some(item => item === 0)||TahtaSoyut[2].some(item => item === 0)))){
+        if (!((TahtaSoyut[0].some(item => item === 0)||TahtaSoyut[1].some(item => item === 0)||TahtaSoyut[2].some(item => item === 0)))&&OyunModu===1){
             oyunSonu(2);
             return;
         }
