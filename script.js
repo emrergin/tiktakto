@@ -109,47 +109,74 @@ const tahtamiz = (function anaModul() {
             if (Math.abs(cPuan[i])===3)
             {
                 oyunSonu(1);
+                break;
             }
         }
     }
 
-    function getMax(a) {
-        return Math.max(...a.map(e => Array.isArray(e) ? getMax(e) : e));
+    function getMin(a) {
+        return Math.min(...a.map(e => Array.isArray(e) ? getMin(e) : e));
     }
     
     // YAPAY ZEKA BURADA GIZLI====================================
-    function hucreDegerleme(){
-        let cPuan=cephePuaniHesapla();
-        let degerArray=[[0,0,0],[0,0,0],[0,0,0]];
-        let degerArray2=[[0,0,0],[0,0,0],[0,0,0]];
+    function eniyiHamleyiYap(tahta){
         let eniyiHamle=[];
-        let ikinciSira=[];
-        let eniyiHamle2=[];
-        for (let i = 0; i < 8; i++) {
-            degerArray[cepheler[i][0][0]][cepheler[i][0][1]]+=Math.max(0,cPuan[i])+0.1;
-            degerArray[cepheler[i][1][0]][cepheler[i][1][1]]+=Math.max(0,cPuan[i])+0.1;
-            degerArray[cepheler[i][2][0]][cepheler[i][2][1]]+=Math.max(0,cPuan[i])+0.1;
-            degerArray[cepheler[i][0][0]][cepheler[i][0][1]]+=-(Math.min(0,cPuan[i]))*0.7;
-            degerArray[cepheler[i][1][0]][cepheler[i][1][1]]+=-(Math.min(0,cPuan[i]))*0.7;
-            degerArray[cepheler[i][2][0]][cepheler[i][2][1]]+=-(Math.min(0,cPuan[i]))*0.7;
-        }
+        let enIyiDeger=1000;
+
         for (let i = 0; i < boyut; i++) {            
             for (let j = 0; j < boyut; j++) {
-                if (TahtaSoyut[i][j]!==0){
-                    degerArray[i][j]=-100;
+                if (tahta[i][j]===0){
+                    tahta[i][j]=-1;
+                    if (DegerHesaplama(tahta,-1)<enIyiDeger)
+                    {
+                        enIyiDeger=DegerHesaplama(tahta,-1,1);
+                        eniyiHamle=[i,j];
+                    }
+                    tahta[i][j]=0;
                 }
             }
         }
-        let maxDeger=getMax(degerArray);
-        for (let i = 0; i < boyut; i++) {            
-            for (let j = 0; j < boyut; j++) {
-                if (degerArray[i][j]===maxDeger){
-                eniyiHamle.push([i,j]);
-                }
-            }
-        }
-        return eniyiHamle[Math.floor(Math.random() * eniyiHamle.length)]
+        return eniyiHamle;
     }
+
+    function durumDegeri(sonTahta){
+        for (let i = 0; i < 8; i++) {
+            if(sonTahta[cepheler[i][0][0]][cepheler[i][0][1]]+sonTahta[cepheler[i][1][0]][cepheler[i][1][1]]+
+                sonTahta[cepheler[i][2][0]][cepheler[i][2][1]]===3)
+                {return 100;}
+            else if (sonTahta[cepheler[i][0][0]][cepheler[i][0][1]]+sonTahta[cepheler[i][1][0]][cepheler[i][1][1]]+
+                sonTahta[cepheler[i][2][0]][cepheler[i][2][1]]===-3)
+                {return -100;}                
+        }
+        if (!((sonTahta[0].some(item => item === 0)||sonTahta[1].some(item => item === 0)||sonTahta[2].some(item => item === 0)))){
+            return 0;
+        }
+    }
+
+    function DegerHesaplama(mevcutTahta,kisi,num){
+        let enOptDeger=-kisi*1000;
+        if(durumDegeri(mevcutTahta)){
+            return durumDegeri(mevcutTahta);
+        }
+        else {
+            for (let i = 0; i < boyut; i++){
+                for (let j = 0; j < boyut; j++){
+                    if (mevcutTahta[i][j]===0){
+                        mevcutTahta[i][j]=kisi;
+                        if (kisi===1){
+                            enOptDeger=Math.max(enOptDeger,DegerHesaplama(mevcutTahta,-kisi,num+1));
+                        }
+                        else{
+                            enOptDeger=Math.min(enOptDeger,DegerHesaplama(mevcutTahta,-kisi,num+1));
+                        }
+                        mevcutTahta[i][j]=0;                    
+                    }    
+                }               
+            }
+        }
+        return enOptDeger;
+    }        
+
     
     function SiradakiHamle(){
         if (!((TahtaSoyut[0].some(item => item === 0)||TahtaSoyut[1].some(item => item === 0)||TahtaSoyut[2].some(item => item === 0)))&&OyunModu===1){
@@ -158,7 +185,8 @@ const tahtamiz = (function anaModul() {
         }
             
         if (currentPlayer===PlayerAI && OyunModu===1){
-            oyunyeri=hucreDegerleme();
+            let oyunyeri=eniyiHamleyiYap(TahtaSoyut);
+            console.log(oyunyeri);
             Tahta[oyunyeri[0]][oyunyeri[1]] = PlayerAI.sembol;
             TahtaSoyut[oyunyeri[0]][oyunyeri[1]] = PlayerAI.soyut;
             tahtayiYenile();
@@ -180,6 +208,6 @@ const tahtamiz = (function anaModul() {
         yenidenBaslatDegistir();
     }
 
-    return {tahtaTemizle};
+    return {tahtaTemizle,DegerHesaplama,TahtaSoyut,eniyiHamleyiYap};
 })();
 
