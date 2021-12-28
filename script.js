@@ -129,19 +129,7 @@ const tahtamiz = (function anaModul() {
         }
         return [Math.floor(eniyiHamle/3),eniyiHamle%3];
     }
-    
-    function HucreDegerlesene(tahtaStr){
-        let HucreDegerleri=[[,,],[,,],[,,]];
-        for (let i = 0; i < 9; i++){           
-            if (tahtaStr.charAt(i)===`-`){
-                tahtaStr=tahtaStr.slice(0,i)+`O`+tahtaStr.slice(i+1);
-                HucreDegerleri[Math.floor(i/3)][i%3]=DegerHesaplamaStr(tahtaStr,-1,1);
-                tahtaStr=tahtaStr.slice(0,i)+`-`+tahtaStr.slice(i+1);                
-            }                  
-        }
-        return HucreDegerleri;
-    }
-    
+        
     function DegerHesaplamaStr(mevcutTahta,kisi,num){
         let enOptDeger=-kisi*1000;
     
@@ -153,7 +141,6 @@ const tahtamiz = (function anaModul() {
                 for (let i = 0; i < 9; i++){           
                     if (mevcutTahta.charAt(i)===`-`){
                         mevcutTahta=mevcutTahta.slice(0,i)+`X`+mevcutTahta.slice(i+1);
-                        // console.log(mevcutTahta);
                         enOptDeger=Math.max(enOptDeger,DegerHesaplamaStr(mevcutTahta,-kisi,num+1));
                         mevcutTahta=mevcutTahta.slice(0,i)+`-`+mevcutTahta.slice(i+1);                
                     }                  
