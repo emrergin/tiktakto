@@ -99,7 +99,7 @@ const tahtamiz = (function anaModul() {
         yenidenBaslatDegistir();
         tahtayiYenile();
         hucreler.forEach((hucreYeri) => {
-            hucreYeri.classList.remove("aktif");
+            hucreYeri.classList.remove("aktif1","aktif2");
         });
         grid.style.display=`flex`;
     }
