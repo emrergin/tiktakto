@@ -61,23 +61,29 @@ const tahtamiz = (function anaModul() {
         if (TahtaSoyut[e.target.dataset.satir][e.target.dataset.sutun] === 0 && OyunModu===1){
             Tahta[e.target.dataset.satir][e.target.dataset.sutun] = currentPlayer.sembol;
             TahtaSoyut[e.target.dataset.satir][e.target.dataset.sutun] = currentPlayer.soyut;
-            tahtayiYenile();
-            zaferKontrolu();
-            
-            if (currentPlayer === Player1) {
-                if (modSec()===`insan`){            
-                    currentPlayer = Player2;
-                }
-                else{
-                    currentPlayer = PlayerAI;
-                }
+            e.target.classList.add('aktif1');
+            e.target.addEventListener("animationend", oyunDevami(), false);
+       }
+    }
+
+    function oyunDevami(){
+        tahtayiYenile();
+        zaferKontrolu();
+
+        if (currentPlayer === Player1) {
+            if (modSec()===`insan`){            
+                currentPlayer = Player2;
             }
-            else {
-                currentPlayer = Player1;
+            else{
+                currentPlayer = PlayerAI;
             }
+        }
+        else {
+            currentPlayer = Player1;
         }
         SiradakiHamle();
     }
+    
     // MEVCUT ARRAYin TAHTAYA YAZILMASI=====================================
     function tahtayiYenile() {
         hucreler.forEach((hucreYeri) => {
@@ -92,6 +98,9 @@ const tahtamiz = (function anaModul() {
         OyunModu=1;
         yenidenBaslatDegistir();
         tahtayiYenile();
+        hucreler.forEach((hucreYeri) => {
+            hucreYeri.classList.remove("aktif");
+        });
         grid.style.display=`flex`;
     }
     
@@ -129,7 +138,7 @@ const tahtamiz = (function anaModul() {
         }
         return [Math.floor(eniyiHamle/3),eniyiHamle%3];
     }
-        
+
     function DegerHesaplamaStr(mevcutTahta,kisi,num){
         let enOptDeger=-kisi*1000;
     
@@ -202,6 +211,9 @@ const tahtamiz = (function anaModul() {
             let oyunyeri=eniyiHamleyiYapStr(makeaString(TahtaSoyut));
             Tahta[oyunyeri[0]][oyunyeri[1]] = PlayerAI.sembol;
             TahtaSoyut[oyunyeri[0]][oyunyeri[1]] = PlayerAI.soyut;
+            let yazilacakHucre = document.querySelector(`[data-satir="${oyunyeri[0]}"][data-sutun="${oyunyeri[1]}"]`);
+            yazilacakHucre.classList.add(`aktif2`);
+            // hucreYeri.textContent = Tahta[hucreYeri.dataset.satir][hucreYeri.dataset.sutun];
             tahtayiYenile();
             zaferKontrolu();
             currentPlayer=Player1;

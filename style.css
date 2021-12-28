@@ -80,12 +80,43 @@ button{
     font-size: min(12vh,13vw);
     justify-content:center;
     align-items: center;
+    color: white;
 }
 
-.hucre:hover{
+.hucre:not(.aktif1,.aktif2):hover{
     border: 2.5vh ridge lightgreen;
-    animation: scale 0.5s;
+}
+
+.hucre.aktif1{
+    animation: koyulas 1s;
+    /* color: black; */
+    background-color: green;
+}
+
+.hucre.aktif2{
+    animation: koyulas2 2s;
+    /* color: black; */
+    background-color: red;
 }
 
 
+@keyframes koyulas {
+    from {
+        /* color: white; */
+        background-color: white;
+    }
+    to {
+        /* color: black; */
+        background-color: green;}
+  }
+
+  @keyframes koyulas2 {
+    from {
+        /* color: white; */
+        background-color: white;
+    }
+    to {
+        /* color: black; */
+        background-color: red;}
+  }
 
