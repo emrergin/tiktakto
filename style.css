@@ -135,7 +135,7 @@ button{
 }
 
 .form-container{
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
 }
 
