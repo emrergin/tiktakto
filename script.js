@@ -113,13 +113,10 @@ const tahtamiz = (function anaModul() {
             mesaj.classList.add("uyuyor");
             mesaj.classList.remove("uyanik");
         }
-        document.getElementById("form").style.display=`none`;
+        document.querySelector(".form-container").classList.add("uyuyor");
+        document.querySelector(".form-container").classList.remove("uyanik");
         grid.style.display=`flex`;
-        // document.getElementById("oyuncuismi1").textContent=Player1.isim;
-        // document.getElementById("oyuncuismi2").textContent=Player2.isim;
 
-        grid.classList.toggle("uyuyor");
-        grid.classList.toggle("uyanik");
         document.getElementById("ayarlar").classList.add("uyanik");
         document.getElementById("ayarlar").classList.remove("uyuyor");
         
@@ -128,7 +125,8 @@ const tahtamiz = (function anaModul() {
     }
 
     function ayarlar(){
-        document.getElementById("form").style.display=`flex`;
+        document.querySelector(".form-container").classList.add("uyanik");
+        document.querySelector(".form-container").classList.remove("uyuyor");
         grid.style.display=`none`;
         document.getElementById("ayarlar").classList.add("uyuyor");
         document.getElementById("ayarlar").classList.remove("uyanik");
