@@ -1,5 +1,6 @@
 const tahtamiz = (function anaModul() {
     const grid = document.querySelector('#container');
+    const mesaj=document.getElementById("mesajKutusu");
 
     const playerFactory = (isim, sembol,soyut) => {
         return { isim, sembol ,soyut}
@@ -61,7 +62,7 @@ const tahtamiz = (function anaModul() {
         if (TahtaSoyut[e.target.dataset.satir][e.target.dataset.sutun] === 0 && OyunModu===1){
             Tahta[e.target.dataset.satir][e.target.dataset.sutun] = currentPlayer.sembol;
             TahtaSoyut[e.target.dataset.satir][e.target.dataset.sutun] = currentPlayer.soyut;
-            e.target.classList.add('aktif1');
+            currentPlayer===Player1? e.target.classList.add('aktif1') :  e.target.classList.add(`aktif2`);;
             e.target.addEventListener("animationend", oyunDevami(), false);
        }
     }
@@ -91,17 +92,50 @@ const tahtamiz = (function anaModul() {
         });
     }
 
+    // TAHTA TEMIZLEME, YENIDEN BASLATMA VS
     function tahtaTemizle(){
         Tahta = [[,,], [,,], [,,]];
         TahtaSoyut = [[0,0,0], [0,0,0], [0,0,0]];
-        currentPlayer = Player1;
-        OyunModu=1;
-        yenidenBaslatDegistir();
-        tahtayiYenile();
+        currentPlayer = Player1;       
+       
         hucreler.forEach((hucreYeri) => {
             hucreYeri.classList.remove("aktif1","aktif2");
         });
+        Player1.isim=document.getElementById("p1_isim").value;
+        Player2.isim=document.getElementById("p2_isim").value;
+
+        if (OyunModu===2){
+            OyunModu=1;
+            mesaj.classList.add("uyuyor");
+            mesaj.classList.remove("uyanik");            
+        }
+        else if (OyunModu===1){
+            mesaj.classList.add("uyuyor");
+            mesaj.classList.remove("uyanik");
+        }
+        document.getElementById("form").style.display=`none`;
         grid.style.display=`flex`;
+        // document.getElementById("oyuncuismi1").textContent=Player1.isim;
+        // document.getElementById("oyuncuismi2").textContent=Player2.isim;
+
+        grid.classList.toggle("uyuyor");
+        grid.classList.toggle("uyanik");
+        document.getElementById("ayarlar").classList.add("uyanik");
+        document.getElementById("ayarlar").classList.remove("uyuyor");
+        
+        yenidenBaslatDegistir();
+        tahtayiYenile();
+    }
+
+    function ayarlar(){
+        document.getElementById("form").style.display=`flex`;
+        grid.style.display=`none`;
+        document.getElementById("ayarlar").classList.add("uyuyor");
+        document.getElementById("ayarlar").classList.remove("uyanik");
+        mesaj.classList.add("uyuyor");
+        mesaj.classList.remove("uyanik");
+        OyunModu=2;
+        yenidenBaslatDegistir();   
     }
     
     function cephePuaniHesapla(){
@@ -120,6 +154,13 @@ const tahtamiz = (function anaModul() {
                 break;
             }
         }
+    }
+
+    // MESAJ KUTUSU=======================================
+    function mesajVer(Metin){
+        mesaj.textContent=Metin;
+        mesaj.classList.add("uyanik");
+        mesaj.classList.remove("uyuyor");
     }
     
     // YAPAY ZEKA BURADA GIZLI====================================
@@ -223,15 +264,17 @@ const tahtamiz = (function anaModul() {
     function oyunSonu(num){
         switch(num){
             case 1:
-                alert(currentPlayer.isim + " kazandı.");
+                // alert(currentPlayer.isim + " kazandı.");
+                mesajVer(currentPlayer.isim + " kazandı.");
                 break;
             case 2:
-                alert("Berabere! Yenişemediniz!");
+                // alert("Berabere! Yenişemediniz!");
+                mesajVer("Berabere! Yenişemediniz!");
                 break;
         }
         OyunModu=2;
-        yenidenBaslatDegistir();
+        // yenidenBaslatDegistir();
     }
 
-    return {tahtaTemizle};
+    return {tahtaTemizle,ayarlar};
 })();

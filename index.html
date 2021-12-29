@@ -11,21 +11,49 @@
 <body>
     <div id="icerik">
         <div id="icerik2">
-            <div id="ayarlar">
-                <div id="rakipMetin">Rakip</div>
-                <div>
-                    <input type="radio" id="default"
-                        name="mod" value="insan"  autocomplete="off">
-                    <label for="default">İnsan</label>
-
-                    <input type="radio" id="tedrici"
-                        name="mod" value="ai" checked autocomplete="off">
-                    <label for="tedrici">Bilgisayar</label>
-                </div>
-                <button type="button" id="temizle" onclick="tahtamiz.tahtaTemizle()">Başlat!</button>
+            
+            <div id="form">
+                <form class="form-container">
+                    <h1>TikTakTo</h1>
+                    <!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_popup_form -->
+                    <div class="textbox">
+                        <label for="isim1"><b>Birinci Oyuncu Adı</b></label>
+                        <input type="text" placeholder="1. Oyuncu" name="isim1" id="p1_isim">
+                    </div>
+                    <div class="textbox">
+                        <label for="isim2"><b>İkinci Oyuncu Adı</b></label>
+                        <input type="text" placeholder="2. Oyuncu" name="isim2" id="p2_isim">
+                    </div>  
+                    <div id="rakipKutu">
+                        <strong id="rakipMetin">Rakip</strong>
+                        <div>
+                            <input type="radio" id="insan"
+                                name="mod" value="insan"  autocomplete="off">
+                            <label for="insan">İnsan</label>
+            
+                            <input type="radio" id="ai"
+                                name="mod" value="ai" checked autocomplete="off">
+                            <label for="ai">Bilgisayar</label>
+                        </div>
+                    </div>
+                
+                    <!-- <button type="button" id="kaydet" onclick="yeniKaydet()">Kaydet</button>
+                    <button type="button" id="kapat" onclick="closeForm()">Kapat</button> -->
+                </form>
             </div>
-            <div id="container" draggable="false" class="unselectable"></div>
+            <div id="dugmeler">
+                <!-- <div id="oyuncuismi1"></div> -->
+                
+                <button type="button" id="temizle" onclick="tahtamiz.tahtaTemizle()">Başlat!</button>
+
+                <button type="button" id="ayarlar" class="uyuyor" onclick="tahtamiz.ayarlar()">Ayarlar</button>
+
+                <!-- <div id="oyuncuismi2"></div> -->
+            </div>
+            <div id="container" draggable="false" class="unselectable uyuyor"></div>
+            
         </div>
+        <div id="mesajKutusu" class="uyuyor"> HEYYYYYY</div>
     </div>   
 </body>
 </html>
