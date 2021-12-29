@@ -101,8 +101,8 @@ const tahtamiz = (function anaModul() {
         hucreler.forEach((hucreYeri) => {
             hucreYeri.classList.remove("aktif1","aktif2");
         });
-        Player1.isim=document.getElementById("p1_isim").value;
-        Player2.isim=document.getElementById("p2_isim").value;
+        Player1.isim=document.getElementById("p1_isim").value || `1. Oyuncu`;
+        Player2.isim=document.getElementById("p2_isim").value || `2. Oyuncu`;
 
         if (OyunModu===2){
             OyunModu=1;
@@ -265,7 +265,7 @@ const tahtamiz = (function anaModul() {
         switch(num){
             case 1:
                 // alert(currentPlayer.isim + " kazandı.");
-                mesajVer(currentPlayer.isim + " kazandı.");
+                mesajVer(currentPlayer.isim + " kazandı!");
                 break;
             case 2:
                 // alert("Berabere! Yenişemediniz!");
