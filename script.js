@@ -1,7 +1,7 @@
 const tahtamiz = (function anaModul() {
     const grid = document.querySelector('#container');
     const mesaj=document.getElementById("mesajKutusu");
-    // const zorluk=document.getElementById("zorlukSlider");
+    const zorluk=document.getElementById("zorlukSlider");
 
     const playerFactory = (isim, sembol,soyut) => {
         return { isim, sembol ,soyut}
@@ -24,10 +24,10 @@ const tahtamiz = (function anaModul() {
     }
 
     let zorlukDegeri=100;
-    // zorluk.oninput = function() {
-    //     zorlukDegeri = this.value;
-    //     document.getElementById("zorlukMetin").textContent=zorlukDegeri;
-    //   }
+    zorluk.oninput = function() {
+        zorlukDegeri = this.value;
+        document.getElementById("zorlukMetin").textContent=zorlukDegeri;
+      }
       
 
     let OyunModu=2;
@@ -176,8 +176,9 @@ const tahtamiz = (function anaModul() {
         for (let i = 0; i < 9; i++){           
             if (tahtaStr.charAt(i)===`-`){
                 tahtaStr=tahtaStr.slice(0,i)+`O`+tahtaStr.slice(i+1);
-                if (DegerHesaplamaStr(tahtaStr,1,1)<enIyiDeger){
-                    enIyiDeger=DegerHesaplamaStr(tahtaStr,1,1);
+                let geciciZar=Math.random()*(101-zorlukDegeri);
+                if (DegerHesaplamaStr(tahtaStr,1,1)+geciciZar<enIyiDeger){
+                    enIyiDeger=DegerHesaplamaStr(tahtaStr,1,1+geciciZar);
                     eniyiHamle=i;
                 }
                 tahtaStr=tahtaStr.slice(0,i)+`-`+tahtaStr.slice(i+1);                
