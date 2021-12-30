@@ -176,7 +176,8 @@ const tahtamiz = (function anaModul() {
         for (let i = 0; i < 9; i++){           
             if (tahtaStr.charAt(i)===`-`){
                 tahtaStr=tahtaStr.slice(0,i)+`O`+tahtaStr.slice(i+1);
-                let geciciZar=Math.random()*(101-zorlukDegeri);
+                let geciciZar=Math.round(Math.random()*(101-zorlukDegeri)*100)/100;
+                // console.log(geciciZar);
                 if (DegerHesaplamaStr(tahtaStr,1,1)+geciciZar<enIyiDeger){
                     enIyiDeger=DegerHesaplamaStr(tahtaStr,1,1+geciciZar);
                     eniyiHamle=i;
