@@ -1,6 +1,7 @@
 const tahtamiz = (function anaModul() {
     const grid = document.querySelector('#container');
     const mesaj=document.getElementById("mesajKutusu");
+    const zorluk=document.getElementById("zorlukSlider")
 
     const playerFactory = (isim, sembol,soyut) => {
         return { isim, sembol ,soyut}
@@ -21,6 +22,13 @@ const tahtamiz = (function anaModul() {
             }
         }
     }
+
+    let zorlukDegeri=100;
+    zorluk.oninput = function() {
+        zorlukDegeri = this.value;
+        document.getElementById("zorlukMetin").textContent=zorlukDegeri;
+      }
+      
 
     let OyunModu=2;
     function yenidenBaslatDegistir(){

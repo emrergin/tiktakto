@@ -123,11 +123,16 @@ button{
   }
 
 
-#rakipKutu{
+#rakipKutu, #zorlukKutu{
     margin:10px; 
     /* font-size: max(3vh,2vw); */
     display:flex;
     justify-content: space-around;
+}
+
+#sliderKutusu{
+    display:flex; 
+    gap:0.5vw;
 }
 
 #form{
@@ -144,10 +149,26 @@ button{
     font-size: 50px;
 }
 
+#ciftSutun{
+    display:flex;
+    gap:1vw;
+    justify-content: center;
+}
+#ayarlar_sutun1,#ayarlar_sutun2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:0.5vw;
+}
+
 .textbox{
     display: flex;
     justify-content: space-around;
 }
+
+/* .slidecontainer{
+    text-align: center;
+} */
 
 #mesajKutusu{
     z-index: 9;
