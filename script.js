@@ -190,7 +190,8 @@ const tahtamiz = (function anaModul() {
         let enOptDeger=-kisi*1000;
     
         if(typeof durumDegeriStr(mevcutTahta)==="number"){
-            return durumDegeriStr(mevcutTahta)-kisi*10*num;
+            // return durumDegeriStr(mevcutTahta)-kisi*10*(num-1);
+            return durumDegeriStr(mevcutTahta);
         }
         else {
             if (kisi===1){
