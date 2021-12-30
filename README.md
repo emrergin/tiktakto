@@ -12,3 +12,4 @@ However, the solution I personally found was not using any implementation of [mi
 - Javascript can not natively copy multidimensional arrays. Thanks [Brian](https://www.linkedin.com/in/brianbucklew)!
 - For a recursive function, using literal values like strings as parameters is a much better solution.
 - The number zero is a falsy expression as much as undefined is, so for functions possibly returning zeros, just getting a return does not ensure its truth value.
+- The difference between `position:absolute` and `position:fixed`.
