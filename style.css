@@ -43,7 +43,6 @@ button{
     padding: 1vh;
     margin:20px;
     font-size: max(2vh,1.5vw);
-    /* z-index: 10; */
 }
 
 #container{
@@ -91,41 +90,34 @@ button{
 
 .hucre.aktif1{
     animation: koyulas 1s;
-    /* color: black; */
     background-color: green;
 }
 
 .hucre.aktif2{
     animation: koyulas2 2s;
-    /* color: black; */
     background-color: red;
 }
 
 
 @keyframes koyulas {
     from {
-        /* color: white; */
         background-color: white;
     }
     to {
-        /* color: black; */
         background-color: green;}
   }
 
   @keyframes koyulas2 {
     from {
-        /* color: white; */
         background-color: white;
     }
     to {
-        /* color: black; */
         background-color: red;}
   }
 
 
 #rakipKutu, #zorlukKutu{
     margin:10px; 
-    /* font-size: max(3vh,2vw); */
     display:flex;
     justify-content: space-around;
 }
@@ -140,7 +132,6 @@ button{
 }
 
 .form-container{
-    /* display: flex; */
     flex-direction: column;
 }
 
@@ -167,14 +158,9 @@ button{
     justify-content: space-around;
 }
 
-#cekboks{
-    /* margin-top: auto; */
-}
-
 #mesajKutusu{
     z-index: 9;
     position: absolute;
-    /* top: 30%; */
     color: #DFFFE9;
     width: min(80vh,80%);
     background-color: #555;
@@ -187,5 +173,4 @@ button{
     border-radius: min(2.5vw,2.5vh);
     border-top: 0px;
     box-shadow: 0px 10px black;
-    /* border-bottom:  min(2vw,3vh) solid black; */
 }
